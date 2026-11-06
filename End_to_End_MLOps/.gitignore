@@ -33,7 +33,6 @@ mlflow.db
 .dvc/cache/
 .dvc/tmp/
 .dvc-state/
-dvc.lock
 
 # Data & outputs (tracked by DVC, not Git)
 data/dataset.csv
