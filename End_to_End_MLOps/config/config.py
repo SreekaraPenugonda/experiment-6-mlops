@@ -51,6 +51,12 @@ try:
     PREDICTIONS_PATH = os.path.join(BASE_DIR, _params["outputs"]["predictions_path"])
     LOG_PATH = os.path.join(BASE_DIR, _params["outputs"]["log_path"])
 
+    # Monitoring paths
+    MONITORING_DIR = os.path.join(BASE_DIR, "monitoring")
+    REFERENCE_DATA_PATH = os.path.join(BASE_DIR, "outputs", "reference_data.csv")
+    DRIFT_REPORT_PATH = os.path.join(BASE_DIR, "outputs", "drift_report.html")
+    PERFORMANCE_REPORT_PATH = os.path.join(BASE_DIR, "outputs", "performance_report.html")
+
 except Exception:
     # Fallback defaults if params.yaml is unavailable
     DATASET_PATH = os.path.join(BASE_DIR, "data", "dataset.csv")
@@ -80,6 +86,12 @@ except Exception:
     METRICS_PATH = os.path.join(BASE_DIR, "outputs", "metrics.json")
     PREDICTIONS_PATH = os.path.join(BASE_DIR, "outputs", "predictions.csv")
     LOG_PATH = os.path.join(BASE_DIR, "logs", "pipeline.log")
+
+    # Monitoring paths
+    MONITORING_DIR = os.path.join(BASE_DIR, "monitoring")
+    REFERENCE_DATA_PATH = os.path.join(BASE_DIR, "outputs", "reference_data.csv")
+    DRIFT_REPORT_PATH = os.path.join(BASE_DIR, "outputs", "drift_report.html")
+    PERFORMANCE_REPORT_PATH = os.path.join(BASE_DIR, "outputs", "performance_report.html")
 
 # Feature lists (populated dynamically at runtime)
 NUMERICAL_FEATURES = []

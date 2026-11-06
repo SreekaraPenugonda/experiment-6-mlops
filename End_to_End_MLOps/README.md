@@ -1,7 +1,25 @@
-# End-to-End ML Pipeline (Version 1)
+# End-to-End MLOps Pipeline (Version 3)
 
-A complete end-to-end machine learning pipeline using Python and Scikit-learn.
-This version is independently executable — no MLflow, Docker, DVC, or web dashboard required.
+A complete end-to-end machine learning pipeline with an interactive Streamlit dashboard,
+MLflow experiment tracking, DVC versioning, automated testing, logging, model monitoring,
+and Docker containerization.
+
+## Version Comparison
+
+| Feature | Version 1 | Version 2 | Version 3 |
+|---------|-----------|-----------|-----------|
+| Dataset Loading | ✅ | ✅ | ✅ |
+| Data Preprocessing | ✅ | ✅ | ✅ |
+| Feature Engineering | ✅ | ✅ | ✅ |
+| Model Training | ✅ | ✅ | ✅ |
+| Model Evaluation | ✅ | ✅ | ✅ |
+| Prediction | ✅ | ✅ | ✅ |
+| MLflow Tracking | — | ✅ | ✅ |
+| DVC Versioning | — | ✅ | ✅ |
+| Logging & Testing | Basic | Advanced | Advanced |
+| Streamlit Dashboard | — | — | ✅ |
+| Docker Deployment | — | — | ✅ |
+| Model Monitoring | — | Basic | ✅ |
 
 ## Folder Structure
 
@@ -20,66 +38,139 @@ End_to_End_MLOps/
 │   ├── evaluate.py
 │   └── predict.py
 │
+├── config/
+│   ├── config.py
+│   └── params.yaml
+│
+├── monitoring/
+│   ├── __init__.py
+│   ├── data_monitor.py
+│   └── model_monitor.py
+│
+├── dashboard/
+│   ├── __init__.py
+│   ├── overview.py
+│   ├── pipeline_ui.py
+│   ├── prediction_ui.py
+│   └── monitoring_ui.py
+│
 ├── models/
 │   └── model.pkl
 │
 ├── outputs/
 │   ├── metrics.json
-│   └── predictions.csv
+│   ├── predictions.csv
+│   ├── reference_data.csv
+│   ├── drift_report.html
+│   └── performance_report.html
 │
-├── config/
-│   └── config.py
+├── logs/
+│   └── pipeline.log
 │
+├── tests/
+│   ├── __init__.py
+│   ├── test_data.py
+│   ├── test_preprocessing.py
+│   └── test_pipeline.py
+│
+├── mlruns/
+├── .dvc/
+├── dvc.yaml
+├── dvc.lock
+├── .gitignore
+├── app.py
 ├── main.py
+├── Dockerfile
+├── docker-compose.yml
 ├── requirements.txt
 └── README.md
 ```
 
-## Pipeline Stages
+## Quick Start
 
-| Stage | Description |
-|-------|-------------|
-| 01 | Dataset Loading — Load CSV using Pandas |
-| 02 | Data Validation — Check missing values, duplicates, data types |
-| 03 | Preprocessing — Handle missing values and scale numerical features |
-| 04 | Feature Engineering — Encode categorical features |
-| 05 | Model Training — Train Random Forest classifier |
-| 06 | Model Evaluation — Accuracy, Precision, Recall, F1, ROC-AUC |
-| 07 | Model Saving — Save complete pipeline using Joblib |
-| 08 | Prediction — Load saved pipeline and predict unseen records |
-
-## Execution
-
-Run the complete pipeline with a single command:
+### Option 1: Run locally
 
 ```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the pipeline (Version 2 style)
 python main.py
+
+# Run the Streamlit dashboard (Version 3)
+streamlit run app.py
 ```
 
-## Expected Output
+### Option 2: Run with Docker
 
-```
-============================================================
-STARTING END-TO-END ML PIPELINE
-============================================================
-[1] Dataset loaded successfully
-[2] Data validation completed
-[3] Preprocessing completed
-[4] Feature engineering completed
-[5] Model training completed
-[6] Model evaluation completed
-[7] Model saved successfully
-[8] Predictions generated successfully
+```bash
+# Build the image
+docker build -t mlops-app .
 
-============================================================
-PIPELINE EXECUTION COMPLETED
-============================================================
+# Run the container
+docker run -p 8501:8501 mlops-app
+
+# Or with Docker Compose
+docker-compose up --build
 ```
+
+Then open your browser at: http://localhost:8501
+
+## Dashboard Sections
+
+| Section | Description |
+|---------|-------------|
+| Overview | Pipeline status, model info, recent logs |
+| Dataset | Upload and inspect CSV data |
+| Pipeline | Execute the full ML pipeline from UI |
+| Evaluation | Metrics, gauge charts, and predictions preview |
+| Prediction | Manual entry or batch CSV predictions |
+| Monitoring | Data drift detection and model health check |
+
+## MLflow
+
+To view experiment tracking:
+
+```bash
+mlflow ui
+```
+
+Then open: http://localhost:5000
+
+## Testing
+
+```bash
+pytest tests/
+```
+
+## DVC
+
+```bash
+# Reproduce the pipeline
+dvc repro
+```
+
+## Monitoring
+
+The dashboard includes:
+- **Data drift detection** using Evidently (compares reference vs current data)
+- **Model health check** (healthy / warning / critical)
+- **Performance degradation** detection (distinguishes drift from accuracy drop)
+- **Drift reports** saved as HTML files
+
+**Note:** Data drift does not automatically mean accuracy has decreased.
+The system distinguishes data drift (input distribution change) from
+actual performance degradation (accuracy drop when labels are available).
 
 ## Technologies
 
-- Python
-- Pandas and NumPy
-- Scikit-learn
-- Joblib
-- VS Code
+- Python, Pandas, NumPy
+- Scikit-learn (ML pipeline)
+- Joblib (model serialization)
+- MLflow (experiment tracking)
+- DVC (data/model versioning)
+- Streamlit (interactive dashboard)
+- Plotly (visualizations)
+- Evidently (drift monitoring)
+- Pytest (automated testing)
+- Docker (containerization)
