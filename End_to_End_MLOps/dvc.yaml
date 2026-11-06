@@ -1,0 +1,18 @@
+stages:
+  train:
+    cmd: python main.py
+    deps:
+      - data/dataset.csv
+      - src/data_loader.py
+      - src/preprocessing.py
+      - src/feature_engineering.py
+      - src/train.py
+      - src/evaluate.py
+      - src/predict.py
+      - config/config.py
+      - config/params.yaml
+    outs:
+      - models/model.pkl
+      - outputs/metrics.json
+      - outputs/predictions.csv
+      - logs/pipeline.log

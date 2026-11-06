@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bin
+*.pyc
+
+# Virtual environments
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# MLflow
+mlruns/
+mlflow.db
+
+# DVC
+.dvc/
+.dvc/cache/
+.dvc/tmp/
+.dvc-state/
+dvc.lock
+
+# Data & outputs (tracked by DVC, not Git)
+data/dataset.csv
+models/*.pkl
+outputs/*.json
+outputs/*.csv
+logs/*.log
+
+# Environment files
+.env

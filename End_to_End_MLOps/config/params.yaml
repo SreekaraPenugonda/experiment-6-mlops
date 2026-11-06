@@ -1,0 +1,36 @@
+# Pipeline configuration parameters
+# These values can be tuned and tracked via MLflow + DVC
+
+data:
+  dataset_path: "data/dataset.csv"
+  target_column: "churn"
+  test_size: 0.2
+  random_state: 42
+
+preprocessing:
+  numerical_impute_strategy: "median"
+  categorical_impute_strategy: "most_frequent"
+  scaler: "standard"
+
+feature_engineering:
+  encode_categorical: true
+  handle_unknown: "ignore"
+
+model:
+  type: "random_forest"
+  n_estimators: 100
+  max_depth: 10
+  min_samples_split: 5
+  min_samples_leaf: 2
+  random_state: 42
+
+mlflow:
+  experiment_name: "churn_prediction_pipeline"
+  tracking_uri: "sqlite:///mlflow.db"
+  registered_model_name: "churn_rf_model"
+
+outputs:
+  model_path: "models/model.pkl"
+  metrics_path: "outputs/metrics.json"
+  predictions_path: "outputs/predictions.csv"
+  log_path: "logs/pipeline.log"
